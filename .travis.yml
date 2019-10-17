@@ -41,5 +41,6 @@ script:
 #   - make
 #   - mkdir output
 #   - ./2dvorticity_psm.exe
+    - cd 01_2D_VE_doublyperiodic
     - bash compile.sh
     - bash execute.sh
