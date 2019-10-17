@@ -1,5 +1,7 @@
 ## psm4cfd
 
+[![Build Status](https://travis-ci.org/toya42/psm4cfd.svg?branch=master)](https://travis-ci.org/toya42/psm4cfd)
+
 
 
 <p align="center">
@@ -9,7 +11,7 @@ alt="Kelvin-Helmholtz instability"
 title="Kelvin-Helmholtz instability">
 </p>
 
-
+Kelvin-Helmholtz instability
 
 
 
