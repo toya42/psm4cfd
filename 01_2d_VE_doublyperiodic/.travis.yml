@@ -1,0 +1,45 @@
+#dist: bionic
+##language: Fortran
+os:
+   - linux
+
+matrix:
+   include: 
+      - dist: xenial
+      - dist: bionic
+sudo: required
+addons:
+   apt:
+      packages:
+      - gfortran
+install:
+   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+   - mkdir ${DEPS_DIR} 
+   - cd ${DEPS_DIR}
+   - travis_retry wget https://github.com/Kitware/CMake/releases/download/v3.15.3/cmake-3.15.3.tar.gz  
+   - tar -xzvf cmake-3.15.3.tar.gz >log1
+   - mv cmake-3.15.3 cmake_install
+   - cd cmake_install
+   - ./configure >log2
+   - make >log3
+   - sudo make install >log4
+   - PATH=${DEPS_DIR}/cmake_install:${DEPS_DIR}/cmake_install/bin:$PATH
+   - cd ${TRAVIS_BUILD_DIR}
+
+before_script:
+   - wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
+   - sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
+   - sudo wget https://apt.repos.intel.com/setup/intelproducts.list -O /etc/apt/sources.list.d/intelproducts.list 
+   - sudo apt-get update
+   - sudo apt-get install intel-mkl-2019.4-070 --allow-unauthenticated
+   - source /opt/intel/mkl/bin/mklvars.sh intel64 lp64
+
+script:
+#   - mkdir build
+#   - cd build
+#   - cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=debug ../
+#   - make
+#   - mkdir output
+#   - ./2dvorticity_psm.exe
+    - bash compile.sh
+    - bash execute.sh
