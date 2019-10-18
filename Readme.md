@@ -5,7 +5,7 @@
 
 
 <p align="center">
-     <img src="https://github.com/toya42/psm4cfd/blob/master/movie/KH_instability.gif"
+     <img src="https://github.com/toya42/garage/blob/master/psm_01/KH_instability.gif"
 width="533" height="480"
 alt="Kelvin-Helmholtz instability"
 title="Kelvin-Helmholtz instability">
