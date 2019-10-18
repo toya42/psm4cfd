@@ -17,7 +17,7 @@ Kelvin-Helmholtz instability
 
 
 
-## Dependeicy
+## Dependency
 
 Fortran2008 (gfortran or ifort)
 
@@ -106,7 +106,7 @@ This software is released under the MIT License, see [LICENSE](https://github.co
 
 ## Authors
 
-Toya42
+toya42
 
 Twitter: @toya42_fortran
 

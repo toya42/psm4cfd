@@ -18,14 +18,6 @@
 
   linear term: Integrating factor technique
 
-## Dependeicy
-
-Fortran2008 (gfortran or ifort)
-
-CMake(3.14 or later)
-
-Intel MKL
-
 ## Usage
 
 
