@@ -10,7 +10,11 @@ module arrays
    real(real64),dimension(0:imax/2-1,-jmax/2:jmax/2-1) :: cn1ij,cn2ij
    real(real64),dimension(0:imax/2-1,-jmax/2:jmax/2-1) :: cl1ij,cn3ij,cn4ij
    real(real64),dimension(:),allocatable :: xi,yj
-   integer,dimension(2) :: n_length,p_length
+#ifdef 32bit_integer
+   integer(int32),dimension(2) :: n_length,p_length
+#elif 64bit_integer
+   integer(int64),dimension(2) :: n_length,p_length
+#endif
    contains
 !-----------------------------------------------------------
    subroutine constant_parameters_initialize
