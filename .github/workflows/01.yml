@@ -3,9 +3,9 @@ on:
    push:
       paths:
          - CMAKELists.txt
-         - *.f90
-         - *.F90
-         - *.yml
+         - '*.f90'
+         - '*.F90'
+         - '*.yml'
 jobs:
    build:
       name: test_github_actions
