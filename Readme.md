@@ -1,6 +1,6 @@
 ## psm4cfd
 
-[![Build Status](https://travis-ci.org/toya42/psm4cfd.svg?branch=master)](https://travis-ci.org/toya42/psm4cfd)
+[![Build Status](https://travis-ci.org/toya42/psm4cfd.svg?branch=master)](https://travis-ci.org/toya42/psm4cfd)![](https://github.com/toya42/psm4cfd/workflows/Fortran%20CI/badge.svg)
 
 
 
