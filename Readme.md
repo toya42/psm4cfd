@@ -1,8 +1,6 @@
 ## psm4cfd
 
-[![Build Status](https://travis-ci.org/toya42/psm4cfd.svg?branch=master)](https://travis-ci.org/toya42/psm4cfd)![](https://github.com/toya42/psm4cfd/workflows/Fortran%20CI/badge.svg)
-
-
+[![Build Status](https://travis-ci.org/toya42/psm4cfd.svg?branch=master)](https://travis-ci.org/toya42/psm4cfd)  [![Actions Status](https://github.com/toya42/psm4cfd/workflows/Fortran%20CI/badge.svg)](https://github.com/toya42/psm4cfd/actions)
 
 <p align="center">
      <img src="https://github.com/toya42/garage/blob/master/psm_01/KH_instability.gif"
