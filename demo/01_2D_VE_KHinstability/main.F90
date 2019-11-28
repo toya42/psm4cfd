@@ -16,9 +16,9 @@ program main
    use arrays, only : constant_parameters_initialize
    use mkl_dfti
    use fft2d_mkl, only : fft2d_initialize,fft2d_finalize
-   use flowfield, only : flowfield_initialize
+   use initial_flowfield, only : flowfield_initialize
    use output, only : wrtd
-   use time_integration, only : timeintegration_initialize,rk4_for_nonlinear_ift_for_linear
+   use time_integration, only : rk4_for_nonlinear_ift_for_linear
    implicit none
    real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1) :: aij
    type(dfti_descriptor),pointer :: des_n_r2c, des_n_c2r ! normal    (length=N)
@@ -34,23 +34,21 @@ program main
 !$ print *,'main) OpenMP No. of threads :',nt
 
 ! pre-process
-   print *,'main) initialization start'
+   print *,'main) pre-process start'
    print *,'main) --fft2d--'
    print *,'main) for N to N transform'
    call fft2d_initialize(imax,jmax,des_n_r2c,des_n_c2r)
    print *,'main) for N*3/2 to N*3/2 transform'
    call fft2d_initialize(ip,jp,des_p_r2c,des_p_c2r)
    print *,'main) --constant parameters--'
-   call constat_parameters_initialize
+   call constant_parameters_initialize
    print *,'main) --flow field--'
-   call flowfield_initialize(aij,des_n_r2c)
-   print *,'main) --time integration--'
-   call timeintegration_initialize(dt)
-   print *,'main) initialization end'
-!
+   call flowfield_initialize(imax,jmax,aij,des_n_r2c)
    print *,'main) output flow field at t=0'
    call wrtd(0,aij,des_n_c2r)
+   print *,'main) pre-process end'
 
+   print *,'main) main sequence start'
 ! main sequence
 !$   t3 = 0.0d0
    do n=1,nmax
@@ -66,11 +64,15 @@ program main
          call wrtd(n,aij,des_n_c2r)
       end if
    end do
+   print *,'main) main sequence end'
 
 ! post-process
-!$   print *,'time',t3
+   print *,'main) post-process start'
+!$   print *,'computational time',t3
    call fft2d_finalize(des_n_r2c,des_n_c2r)
    call fft2d_finalize(des_p_r2c,des_p_c2r)
+   print *,'main) post-process end'
+   print *,'main) calculation is completed successfully'
 
    stop
 end program main

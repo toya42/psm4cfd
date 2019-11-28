@@ -15,7 +15,7 @@ module constants
    real(real64),parameter :: pi = 4.0d0*atan(1d0)
    real(real64),parameter :: nu = 2.0d-6
 
-   integer(int32),parameter :: imax = 4*2**6
+   integer(int32),parameter :: imax = 4*2**5
    integer(int32),parameter :: jmax = imax
    integer(int32),parameter :: ip = imax*3/2
    integer(int32),parameter :: jp = ip

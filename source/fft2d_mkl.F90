@@ -9,14 +9,15 @@ module fft2d_mkl
    subroutine fft2d_initialize(imax,jmax,des_r2c,des_c2r)
       use,intrinsic :: iso_fortran_env
       implicit none
-      integer(int32),intent(in) :: imax,jmax
       type(dfti_descriptor),pointer :: des_r2c,des_c2r
-#ifdef 32bit_integer
+#if integertype==0
+      integer(int32),intent(in) :: imax,jmax
       integer(int32),dimension(12) :: dftistatus
       integer(int32),dimension(2) :: length
       integer(int32),dimension(3) :: stride_i,stride_o
       integer(int32) :: i
-#elif 64bit_integer
+#elif integertype==1
+      integer(int64),intent(in) :: imax,jmax
       integer(int64),dimension(12) :: dftistatus
       integer(int64),dimension(2) :: length
       integer(int64),dimension(3) :: stride_i,stride_o
@@ -70,10 +71,10 @@ module fft2d_mkl
       use,intrinsic :: iso_fortran_env
       implicit none
       type(dfti_descriptor),pointer :: des_r2c,des_c2r
-#ifdef 32bit_integer
+#if integertype==0
       integer(int32),dimension(2) :: dftistatus
       integer(int32) :: i
-#elif 64bit_integer
+#elif integertype==1
       integer(int64),dimension(2) :: dftistatus
       integer(int64) :: i
 #endif
@@ -100,12 +101,16 @@ module fft2d_mkl
       use,intrinsic :: iso_fortran_env
       implicit none
       type(dfti_descriptor),pointer :: des_r2c
-      integer,dimension(2),intent(in) :: length
+#if integertype==0
+      integer(int32),dimension(2),intent(in) :: length
+#elif integertype==1
+      integer(int64),dimension(2),intent(in) :: length
+#endif
       real(real64),dimension(length(1)),intent(in)  :: real2d
       real(real64),dimension(length(2)),intent(out) :: complex2d
-#ifdef 32bit_integer
+#if integertype==0
       integer(int32) :: dftistatus
-#elif 64bit_integer
+#elif integertype==1
       integer(int64) :: dftistatus
 #endif
 
@@ -126,12 +131,16 @@ module fft2d_mkl
       use,intrinsic :: iso_fortran_env
       implicit none
       type(dfti_descriptor),pointer :: des_c2r
-      integer,dimension(2),intent(in) :: length
+#if integertype==0
+      integer(int32),dimension(2),intent(in) :: length
+#elif integertype==1
+      integer(int64),dimension(2),intent(in) :: length
+#endif
       real(real64),dimension(length(2)),intent(in)  :: complex2d
       real(real64),dimension(length(1)),intent(out) :: real2d
-#ifdef 32bit_integer
+#if integertype==0
       integer(int32) :: dftistatus
-#elif 64bit_integer
+#elif integertype==1
       integer(int64) :: dftistatus
 #endif
 

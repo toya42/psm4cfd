@@ -8,48 +8,20 @@ module time_integration
    use arrays, only : p_length,cl1ij,cn3ij,cn4ij
    implicit none
    private
-   public timeintegration_initialize,rk4_for_nonlinear_ift_for_linear
+!   public timeintegration_initialize,rk4_for_nonlinear_ift_for_linear
+   public rk4_for_nonlinear_ift_for_linear
    contains
-   subroutine timeintegration_initialize(dt)
-      use,intrinsic :: iso_fortran_env
-      use flowfield, only : cn1ij
-      implicit none
-      real(real64),intent(in) :: dt
-      integer(int32) :: i,j
-
-      p_length(1) = ip*jp
-      p_length(2) = (ip/2+1)*2*jp   ! (ip+2)*jp
-
-! constants for linear term calculation
-      do j=-jmax/2,jmax/2-1
-         do i=0,imax/2-1
-            cl1ij(i,j) = dexp(-0.50d0*dt*nu*dble(i*i+j*j))
-         end do
-      end do
-
-! constants for nonlinear term calculation
-!  #3
-      do j=-jmax/2,jmax/2-1
-         do i=0,imax/2-1
-               cn3ij(i,j) = dble(i*i-j*j)*cn1ij(i,j)
-         end do
-      end do
-!  #4
-      do j=-jmax/2,jmax/2-1
-         do i=0,imax/2-1
-               cn4ij(i,j) = dble(i*j)*cn1ij(i,j)
-         end do
-      end do
-
-      return
-   end subroutine timeintegration_initialize
 !-----------------------------------------------------------
    subroutine rk4_for_nonlinear_ift_for_linear(dt,ijmax,f0,des_p_r2c,des_p_c2r)
       use,intrinsic :: iso_fortran_env
       use mkl_dfti
       implicit none
       real(real64),intent(in) :: dt
+#if integertype==0
       integer(int32),intent(in) :: ijmax
+#elif integertype==1
+      integer(int64),intent(in) :: ijmax
+#endif
       type(dfti_descriptor),pointer :: des_p_r2c,des_p_c2r
       real(real64),parameter :: c16 = 1.0d0/6.0d0
       real(real64),parameter :: c13 = 1.0d0/3.0d0
@@ -100,9 +72,12 @@ module time_integration
       real(real64),dimension(2,0:ip/2-1,-jp/2:jp/2-1) :: ht_p
       real(real64),dimension(ip+2,jp) :: workc
       real(real64)   ,dimension(0:ip-1,0:jp-1)   :: u,v,uv,v2mu2
+#if integertype==0
       integer(int32) :: i,j
+#elif integertype==1
+      integer(int64) :: i,j
+#endif
       real(real64) :: di,dj
-
 
 ! calc. u
 !$omp parallel workshare
@@ -169,17 +144,21 @@ module time_integration
 
    end subroutine intg_nonlinear
 !-----------------------------------------------------------
-   subroutine intg_linear(w)
+   subroutine intg_linear(f)
       use,intrinsic :: iso_fortran_env
       implicit none
-      real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1),intent(inout) :: w
+      real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1),intent(inout) :: f
+#if integertype==0
       integer(int32) :: i,j
+#elif integertype==1
+      integer(int64) :: i,j
+#endif
 
-!$omp parallel do shared(w,cl1ij),private(i,j)
+!$omp parallel do shared(f,cl1ij),private(i,j)
       do j=-jmax/2,jmax/2-1
          do i=0,imax/2-1
-            w(1,i,j) = w(1,i,j)*cl1ij(i,j)
-            w(2,i,j) = w(2,i,j)*cl1ij(i,j)
+            f(1,i,j) = f(1,i,j)*cl1ij(i,j)
+            f(2,i,j) = f(2,i,j)*cl1ij(i,j)
          end do
       end do
 !$omp end parallel do

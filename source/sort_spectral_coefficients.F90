@@ -9,10 +9,15 @@ module sort_spectral_coefficients
    function workc_to_aij(imax,jmax,workc) result(aij)
       use,intrinsic :: iso_fortran_env
       implicit none
+#if integertype==0
       integer(int32),intent(in) :: imax,jmax
+      integer(int32) :: i,j,i2,j1,jmjm
+#elif integertype==1
+      integer(int64),intent(in) :: imax,jmax
+      integer(int64) :: i,j,i2,j1,jmjm
+#endif
       real(real64),dimension(imax+2,jmax),intent(in) :: workc
       real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1) :: aij
-      integer(int32) :: i,j,i2,j1,jmjm
 
 !$omp parallel do shared(aij,workc),private(i,j,j1,i2)
       do j=0,jmax/2-1
@@ -42,10 +47,15 @@ module sort_spectral_coefficients
    function aij_to_workc(imax,jmax,aij) result(workc)
       use,intrinsic :: iso_fortran_env
       implicit none
+#if integertype==0
       integer(int32),intent(in) :: imax,jmax
+      integer(int32) :: i,j,i2,j1,jmjm
+#elif integertype==1
+      integer(int64),intent(in) :: imax,jmax
+      integer(int64) :: i,j,i2,j1,jmjm
+#endif
       real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1),intent(in) :: aij
       real(real64),dimension(imax+2,jmax) :: workc
-      integer(int32) :: i,j,i2,j1,jmjm
 
 !$omp parallel do shared(workc,aij),private(i,j,j1,i2)
       do j=0,jmax/2-1
