@@ -20,9 +20,9 @@ endif()
 if(CMAKE_Fortran_COMPILER_ID MATCHES GNU)
    set(CMAKE_Fortran_FLAGS_DEBUG   "-O0            -Wall -pedantic  -std=f2008                        \
                                     -fbounds-check -Wuninitialized  -ffpe-trap=invalid,zero,overflow  \
-                                    -fbacktrace    -g -Ddebug -lpthread -ldl")
-   set(CMAKE_Fortran_FLAGS_PROFILE "-O3 -march=narive -mtune=native -p -lpthread -ldl")
-   set(CMAKE_Fortran_FLAGS_FAST    "-O3 -march=native -mtune=native -lpthread -ldl")
+                                    -fbacktrace    -g -Ddebug -lpthread -ldl -Wl,--no-as-needed")
+   set(CMAKE_Fortran_FLAGS_PROFILE "-O3 -march=narive -mtune=native -p -lpthread -ldl -Wl,--no-as-needed")
+   set(CMAKE_Fortran_FLAGS_FAST    "-O3 -march=native -mtune=native -lpthread -ldl -Wl,--no-as-needed")
 endif()
 
 option(large_array "32/64bit integer" OFF)
