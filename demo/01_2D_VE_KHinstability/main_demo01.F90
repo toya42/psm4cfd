@@ -45,7 +45,8 @@ program main
    print *,'main) --flow field--'
    call flowfield_initialize(imax,jmax,aij,des_n_r2c)
    print *,'main) output flow field at t=0'
-   call wrtd(oflag,0,aij,des_n_c2r)
+   n=0
+   call wrtd(oflag,n,aij,des_n_c2r)
    print *,'main) pre-process end'
 
    print *,'main) main sequence start'

@@ -22,7 +22,7 @@ module initial_flowfield
       type(dfti_descriptor),pointer :: des_n_r2c
       real(real64),dimension(imax,jmax) :: zeta
       real(real64),dimension(imax+2,jmax) :: workc
-      real(real64) :: x,x1,x2,y
+      real(real64) :: x,x1,x2,y,y1,y2,sigma,sgm2i,c
       
       allocate(xi(imax))
       allocate(yj(jmax))
@@ -32,14 +32,20 @@ module initial_flowfield
       do j=1,jmax
          yj(j)  = dble(2.00d0*pi*dble(j-1)/dble(jmax))
       end do
+
+      sigma = dble(0.10d0*pi)
+      sgm2i = 1.0d0/(sigma*sigma)
+      c = 0.0322447d0
       do j=1,jmax
          do i=1,imax
             x  = xi(i)
             y  = yj(j)
-            x1 = x-0.5d0*pi
-            x2 = x-1.5d0*pi
-            zeta(i,j) =     4.0d0*( exp(-(x1/5.0d-2)**2)*(1.0d0+1.0d-2*cos(2.0d0*(y+0.5d0*pi)))  &
-&                                  -exp(-(x2/5.0d-2)**2)*(1.0d0+1.0d-2*cos(2.0d0*(y         ))) ) 
+            x1 = dble(0.80d0*pi)
+            y1 = x1
+            x2 = dble(1.20d0*pi)
+            y2 = x2
+            zeta(i,j) = exp((cos(x-x1)+cos(y-y1)-2.0d0)*sgm2i)  &
+&                      +exp((cos(x-x2)+cos(y-y2)-2.0d0)*sgm2i)-c
          end do
       end do
 
