@@ -1,4 +1,4 @@
-name: Fortran CI
+name: demo
 on: push
 #on:
 #   push:

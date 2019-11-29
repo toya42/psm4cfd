@@ -37,9 +37,9 @@ else()
 endif()
 
 add_executable(${EXECUTABLE}
-   main_demo02.F90
-   constants_demo02.F90
-   initial_flowfield_demo02.F90
+   main_demo01.F90
+   constants_demo01.F90
+   initial_flowfield_demo01.F90
    ../../source/fft2d_mkl.F90
    ../../source/arrays_2D_VE_DP.F90
    ../../source/time_integration_2D_VE_DP.F90
