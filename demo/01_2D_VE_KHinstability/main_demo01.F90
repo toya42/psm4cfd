@@ -45,7 +45,7 @@ program main
    print *,'main) --flow field--'
    call flowfield_initialize(imax,jmax,aij,des_n_r2c)
    print *,'main) output flow field at t=0'
-   call wrtd(0,aij,des_n_c2r)
+   call wrtd(oflag,0,aij,des_n_c2r)
    print *,'main) pre-process end'
 
    print *,'main) main sequence start'
@@ -61,7 +61,7 @@ program main
 !$    t2 = omp_get_wtime()
 !$      t3 = t3+t2-t1
       if(mod(n,nout).eq.0) then
-         call wrtd(n,aij,des_n_c2r)
+         call wrtd(oflag,n,aij,des_n_c2r)
       end if
    end do
    print *,'main) main sequence end'

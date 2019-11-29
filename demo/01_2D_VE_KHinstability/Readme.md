@@ -18,19 +18,15 @@
 
   linear term: Integrating factor technique
 
-## Usage
+## Problem setting
+
+### Kelvin Helmholtz instability
 
 
 
-## License
+# License
 
 This software is released under the MIT License, see [LICENSE](https://github.com/toya42/psm4cfd/blob/master/LICENSE).
-
-## Authors
-
-toya42
-
-Twitter: @toya42_fortran
 
 ## References
 

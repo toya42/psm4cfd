@@ -32,6 +32,11 @@ jobs:
                cd 01_2D_VE_doublyperiodic
                bash compile.sh
                bash execute.sh
+      - name: check
+       run: |
+               cd ../demo/01_2D_VE_KHinstability
+               bash compile.sh
+               bash execute.sh
 
                
 

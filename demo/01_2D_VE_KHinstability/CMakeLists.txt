@@ -33,14 +33,15 @@ else()
 endif()
 
 add_executable(${EXECUTABLE}
-   main.F90
+   main_demo01.F90
    constants_demo01.F90
+   initial_flowfield_demo01.F90
    ../../source/fft2d_mkl.F90
    ../../source/arrays_2D_VE_DP.F90
-   initial_flowfield_demo01.F90
    ../../source/time_integration_2D_VE_DP.F90
-   output_2D.F90
+   ../../source/output_2D_VE_DP.F90
    ../../source/sort_spectral_coefficients.F90
+   ../../source/velocity_2D_VE_DP.F90
    /opt/intel/mkl/include/mkl_dfti.f90
   )
 
