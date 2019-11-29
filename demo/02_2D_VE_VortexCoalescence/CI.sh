@@ -19,7 +19,6 @@ cd ../build
 make clean
 cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=debug -Dlagrge_array=ON ../
 cd ../run
-ln -s ../build/2dvorticity_psm.exe ./
 ./2dvorticity_psm.exe
 
 # 03 fast+OFF
@@ -27,7 +26,6 @@ cd ../build
 make clean
 cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=fast -Dlagrge_array=OFF ../
 cd ../run
-ln -s ../build/2dvorticity_psm.exe ./
 ./2dvorticity_psm.exe
 
 # 03 fast+ON
@@ -35,5 +33,4 @@ cd ../build
 make clean
 cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=fast -Dlagrge_array=ON ../
 cd ../run
-ln -s ../build/2dvorticity_psm.exe ./
 ./2dvorticity_psm.exe
