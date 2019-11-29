@@ -18,7 +18,6 @@ ln -s ../build/2dvorticity_psm.exe ./
 cd ../build
 make clean
 cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=debug -D large_array=ON ../
-make
 cd ../run
 ./2dvorticity_psm.exe
 
@@ -26,7 +25,6 @@ cd ../run
 cd ../build
 make clean
 cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=fast -D large_array=OFF ../
-make
 cd ../run
 ./2dvorticity_psm.exe
 
@@ -34,7 +32,6 @@ cd ../run
 cd ../build
 make clean
 cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=fast -D large_array=ON ../
-make
 cd ../run
 ./2dvorticity_psm.exe
 cd ..
