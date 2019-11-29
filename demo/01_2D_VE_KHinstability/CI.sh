@@ -38,3 +38,4 @@ make
 cd ../run
 ./2dvorticity_psm.exe
 cd ..
+pwd

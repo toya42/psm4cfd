@@ -34,3 +34,4 @@ make clean
 cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=fast -D large_array=ON ../
 cd ../run
 ./2dvorticity_psm.exe
+cd ..
