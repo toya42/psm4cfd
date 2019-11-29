@@ -1,6 +1,6 @@
 #!/bin/bash
 mkdir build
 cd build
-cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=debug -Dlagrge_array=OFF ../
+cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=debug -Dlagrge_array=ON ../
 make
 
