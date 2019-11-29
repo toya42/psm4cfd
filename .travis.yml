@@ -46,3 +46,5 @@ script:
 #    - bash execute.sh
    - cd demo/01_2D_VE_KHinstability
    - bash CI.sh
+   - cd ../02_2D_VE_VortexCoalescence
+   - bash CI.sh
