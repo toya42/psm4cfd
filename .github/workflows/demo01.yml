@@ -33,7 +33,8 @@ jobs:
                bash CI.sh
       - name: demo02
         run: |
-               cd ../02_2D_VE_VortexCoalescence
+               pwd
+               cd demo/02_2D_VE_VortexCoalescence
                bash CI.sh
 
 
