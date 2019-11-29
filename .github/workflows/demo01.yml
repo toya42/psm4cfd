@@ -27,16 +27,22 @@ jobs:
                sudo apt-get update
                sudo apt-get install intel-mkl-2019.4-070 --allow-unauthenticated
                source /opt/intel/mkl/bin/mklvars.sh intel64 lp64
+      - name: compile&run
+        run: |
+               cd demo/01_2D_VE_KHinstability
+               bash compile.sh
+               bash execute.sh
+
 #      - name: compile&run
 #        run: |
 #               cd 01_2D_VE_doublyperiodic
 #               bash compile.sh
 #               bash execute.sh
-      - name: demo01
-       run: |
-               cd demo/01_2D_VE_KHinstability
-               bash compile.sh
-               bash execute.sh
+#      - name: demo01
+#       run: |
+#               cd demo/01_2D_VE_KHinstability
+#               bash compile.sh
+#               bash execute.sh
 
                
 
