@@ -48,3 +48,5 @@ script:
    - bash CI.sh
    - cd ../02_2D_VE_VortexCoalescence
    - bash CI.sh
+   - cd ../03_2D_VE_HomogeniousTurbulence
+   - bash CI.sh

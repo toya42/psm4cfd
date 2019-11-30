@@ -35,5 +35,11 @@ jobs:
         run: |
                cd demo/02_2D_VE_VortexCoalescence
                bash CI.sh
+      - name: demo03
+        run: |
+               cd demo/03_2D_VE_HomogeniousTurbulence
+               bash CI.sh
+
+
 
 

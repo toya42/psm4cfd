@@ -22,8 +22,15 @@ module initial_flowfield
       type(dfti_descriptor),pointer :: des_n_r2c
       real(real64),dimension(imax,jmax) :: zeta
       real(real64),dimension(imax+2,jmax) :: workc
-      real(real64) :: x,x1,x2,y,y1,y2,sigma,sgm2i,c
       
+      real(real64) :: s,as,dkp,dk,ek,rnd(2)
+      complex(real64) :: omega,iu
+
+      s = 3.0d0
+      dkp = 12.0d0
+      as = (2.0d0*3.00+1.0d0)**4/(8.0d0*6.0d0)
+      iu = (0.0d0,1.0d0)
+
       allocate(xi(imax))
       allocate(yj(jmax))
       do i=1,imax
@@ -33,24 +40,17 @@ module initial_flowfield
          yj(j)  = dble(2.00d0*pi*dble(j-1)/dble(jmax))
       end do
 
-      sigma = dble(0.10d0*pi)
-      sgm2i = 1.0d0/(sigma*sigma)
-      c = 0.0322447d0
-      do j=1,jmax
-         do i=1,imax
-            x  = xi(i)
-            y  = yj(j)
-            x1 = dble(0.80d0*pi)
-            y1 = x1
-            x2 = dble(1.20d0*pi)
-            y2 = x2
-            zeta(i,j) = exp((cos(x-x1)+cos(y-y1)-2.0d0)*sgm2i)  &
-&                      +exp((cos(x-x2)+cos(y-y2)-2.0d0)*sgm2i)-c
+      do j=-jmax/2,jmax/2-1
+         do i=0,imax/2-1
+            dk = sqrt(dble(i*i+j*j))
+            ek = 0.50d0*as/dkp*(dk/dkp)**(2*s+1)*exp(-(0.50d0+s)*(dk/dkp)**2)
+            call random_number(rnd)
+            rnd = rnd*2.0d0*pi
+            omega = sqrt(dble(dk/pi*ek))*exp(iu*(rnd(1)+rnd(2)))
+            bij(1,i,j) = omega%RE
+            bij(2,i,j) = omega%IM
          end do
       end do
-
-      call fft2d_execute_forward(des_n_r2c,n_length,zeta,workc)
-      bij = workc_to_aij(imax,jmax,workc)
 
       aij(1,:,:) = bij(1,:,:)*cn1ij(:,:)
       aij(2,:,:) = bij(2,:,:)*cn1ij(:,:)

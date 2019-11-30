@@ -17,7 +17,7 @@ program main
    use mkl_dfti
    use fft2d_mkl, only : fft2d_initialize,fft2d_finalize
    use initial_flowfield, only : flowfield_initialize
-   use output, only : wrtd
+   use output, only : wrtd,energy_spectra
    use time_integration, only : rk4_for_nonlinear_ift_for_linear
    implicit none
    real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1) :: aij
@@ -47,6 +47,7 @@ program main
    print *,'main) output flow field at t=0'
    n=0
    call wrtd(oflag,n,aij,des_n_c2r)
+   call energy_spectra(n,aij)
    print *,'main) pre-process end'
 
    print *,'main) main sequence start'
@@ -63,6 +64,7 @@ program main
 !$      t3 = t3+t2-t1
       if(mod(n,nout).eq.0) then
          call wrtd(oflag,n,aij,des_n_c2r)
+         call energy_spectra(n,aij)
       end if
    end do
    print *,'main) main sequence end'

@@ -1,10 +1,56 @@
 module output
    use,intrinsic :: iso_fortran_env
-   use constants, only : imax,jmax
+   use constants, only : imax,jmax,pi
    implicit none
    private
-   public wrtd!,energy_spectrum_2D
+   public wrtd,energy_spectra
    contains
+!-----------------------------------------------------------
+   subroutine energy_spectra(loop,aij)
+      use arrays, only : cn2ij
+      implicit none
+      integer(int32),intent(in) :: loop
+      real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1),intent(in) :: aij
+      real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1) :: bij
+#if integertype==0
+      integer(int32) :: i,j,k
+#elif integertype==1
+      integer(int64) :: i,j,k
+#endif
+      character(len=50) :: filename
+      integer(int32) :: kmax
+      real(real64),dimension(:),allocatable :: ek
+      real(real64) :: dk
+
+      kmax=int(sqrt(dble((imax/2)**2+(jmax/2)**2)))
+      allocate(ek(0:kmax))
+
+!$omp parallel workshare
+      bij(1,:,:) = aij(1,:,:)*cn2ij(:,:)
+      bij(2,:,:) = aij(2,:,:)*cn2ij(:,:)
+!$omp end parallel workshare
+
+      ek = 0.0d0
+      do j=-jmax/2,jmax/2-1
+         do i=0,imax/2-1
+            dk = sqrt(dble(i*i+j*j))
+            k = int(dk)
+            if(dk.eq.0.0d0) cycle
+            ek(k) = ek(k)+pi/dk*(bij(1,i,j)**2+bij(2,i,j)**2)
+         end do
+      end do
+      write(filename,'("output/energy_spectra_",i5.5,".txt")') loop
+      open(12,file=filename,form='formatted',status='replace')
+      write(12,*) '#',loop
+      do k=0,kmax
+         if(ek(k).ne.0) then
+            write(12,'(i4,E18.8e3)') k,ek(k)
+         end if
+      end do
+      close(12)
+
+      return
+   end subroutine energy_spectra
 !-----------------------------------------------------------
    subroutine wrtd(oflag,loop,aij,des_n_c2r)
 ! oflag
