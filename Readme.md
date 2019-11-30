@@ -1,10 +1,10 @@
 ## psm4cfd
 
-[![Build Status](https://travis-ci.org/toya42/psm4cfd.svg?branch=master)](https://travis-ci.org/toya42/psm4cfd)  [![](https://github.com/toya42/psm4cfd/workflows/demo/badge.svg)](https://github.com/toya42/psm4cfd/actions)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)[![Build Status](https://travis-ci.org/toya42/psm4cfd.svg?branch=master)](https://travis-ci.org/toya42/psm4cfd)  [![](https://github.com/toya42/psm4cfd/workflows/demo/badge.svg)](https://github.com/toya42/psm4cfd/actions)
 
 
 
- psm4cfd means pseudo spectral method for computational fluid dynamics.  The psm4cfd can simulate two-dimensional incompressible flow on doubly periodic condition.
+ psm4cfd is a code of pseudo spectral method  for computational fluid dynamics, wrriten in Fortran.  The psm4cfd can simulate two-dimensional incompressible flow on doubly periodic condition.
 
 <p align="center">
      <img src="https://github.com/toya42/garage/blob/master/psm_01/KH_instability.gif"
@@ -23,7 +23,7 @@ Kelvin-Helmholtz instability
 
 Fortran2008 (gfortran or ifort)
 
-CMake(3.14 or later)
+CMake(3.12 or later)
 
 Intel MKL
 
@@ -97,6 +97,69 @@ source /opt/intel/mkl/bin/mklvars.sh intel64 lp64
 ```
 
 
+
+## Usage
+
+  According to `demo`, you need to prepare `main.F90` ,`constants.F90` and `initial_flowfield.F90`.
+
+### Compile
+
+ Options of `cmake` are `CMAKE_Fortran_COMPILER`, `CMAKE_BUILD_TYPE` and `large_array`.
+
+You need to type, for example,
+
+```bash
+$cmake -D CMAKE_Fortran_COMPILER=ifort    -D CMAKE_BUILD_TYPE=debug -Dlarge_array=OFF
+```
+
+or add to your "~/.bashrc" file, the following line:
+
+```bash
+# cmake
+# small array (DOF<2^14)
+#  debug
+alias cmakeids='cmake -D CMAKE_Fortran_COMPILER=ifort    -D CMAKE_BUILD_TYPE=debug -Dlarge_array=OFF'
+alias cmakegds='cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=debug -Dlarge_array=OFF'
+#  fast
+alias cmakeifs='cmake -D CMAKE_Fortran_COMPILER=ifort    -D CMAKE_BUILD_TYPE=fast -Dlarge_array=OFF'
+alias cmakegfs='cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=fast -Dlarge_array=OFF'
+
+# large array (DOF>2^14)
+#  debug
+alias cmakeidl='cmake -D CMAKE_Fortran_COMPILER=ifort    -D CMAKE_BUILD_TYPE=debug -Dlarge_array=ON'
+alias cmakegdl='cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=debug -Dlarge_array=ON'
+#  fast
+alias cmakeifl='cmake -D CMAKE_Fortran_COMPILER=ifort    -D CMAKE_BUILD_TYPE=fast -Dlarge_array=ON'
+alias cmakegfl='cmake -D CMAKE_Fortran_COMPILER=gfortran -D CMAKE_BUILD_TYPE=fast -Dlarge_array=ON'
+```
+
+After `$source ~/.bashrc`, you can
+
+```bash
+$mkdir build
+$cd build
+$cmake[???] ..
+$make
+```
+
+### Execute
+
+```bash
+#choose  number of threads (ex. 2)
+$export OMP_NUM_THREADS=2
+#set stacksize (ex. 1GB)
+$export OMP_STACKSIZE=1G
+# make output directory
+$mkdir output
+# execute 
+$./2dvorticity_psm.exe
+```
+
+
+
+### Visulalize
+
+Output file format is plot3d. So any visualization softwares can  be used that supports plot3d format. For example, Paraview, Fieldveiw, etc...
 
 ## License
 
