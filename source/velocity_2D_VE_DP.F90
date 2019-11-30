@@ -16,9 +16,9 @@ module velocity
       type(dfti_descriptor),pointer :: des_n_c2r
       real(real64),dimension(imax,jmax),intent(out) :: vel1,vel2
 #if integertype==0
-      integer(int32) :: i,j,k
+      integer(int32) :: i,j
 #elif integertype==1
-      integer(int64) :: i,j,k
+      integer(int64) :: i,j
 #endif
       real(real64),dimension(imax+2,jmax) :: workc
       real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1) :: vij
