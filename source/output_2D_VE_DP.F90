@@ -7,11 +7,9 @@ module output
    contains
 !-----------------------------------------------------------
    subroutine energy_spectra(loop,aij)
-      use arrays, only : cn2ij
       implicit none
       integer(int32),intent(in) :: loop
       real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1),intent(in) :: aij
-      real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1) :: bij
 #if integertype==0
       integer(int32) :: i,j,k
 #elif integertype==1
@@ -25,18 +23,13 @@ module output
       kmax=int(sqrt(dble((imax/2)**2+(jmax/2)**2)))
       allocate(ek(0:kmax))
 
-!$omp parallel workshare
-      bij(1,:,:) = aij(1,:,:)*cn2ij(:,:)
-      bij(2,:,:) = aij(2,:,:)*cn2ij(:,:)
-!$omp end parallel workshare
-
-      ek = 0.0d0
+      ek(:) = 0.0d0
       do j=-jmax/2,jmax/2-1
          do i=0,imax/2-1
             dk = sqrt(dble(i*i+j*j))
             k = int(dk)
             if(dk.eq.0.0d0) cycle
-            ek(k) = ek(k)+pi/dk*(bij(1,i,j)**2+bij(2,i,j)**2)
+            ek(k) = ek(k)+dk*dk*(aij(1,i,j)**2+aij(2,i,j)**2)
          end do
       end do
       write(filename,'("output/energy_spectra_",i5.5,".txt")') loop
@@ -73,9 +66,9 @@ module output
       real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1) :: bij
       real(real64),dimension(imax,jmax) :: zeta,vel1,vel2
 #if integertype==0
-      integer(int32) :: i,j,k
+      integer(int32) :: i,j
 #elif integertype==1
-      integer(int64) :: i,j,k
+      integer(int64) :: i,j
 #endif
       integer(int32) :: io,jo,ko,lo
       real(real64),dimension(imax+2,jmax) :: workc

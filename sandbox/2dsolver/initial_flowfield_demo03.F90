@@ -21,9 +21,8 @@ module initial_flowfield
       real(real64),dimension(2,0:imax/2-1,-jmax/2:jmax/2-1) :: bij
       type(dfti_descriptor),pointer :: des_n_r2c
       
-      real(real64) :: s,as,dkp,dk,ek!,rnd(2)
-      complex(real64) :: zeta,iu
-      real(real64),dimension(2,0:imax/2,0:jmax/2) :: rnd
+      real(real64) :: s,as,dkp,dk,ek,rnd(2)
+      complex(real64) :: omega,iu
 
       s = 3.0d0
       dkp = 12.0d0
@@ -39,28 +38,17 @@ module initial_flowfield
          yj(j)  = dble(2.00d0*pi*dble(j-1)/dble(jmax))
       end do
 
-      call random_number(rnd)
-      rnd = rnd*2.0d0*pi
-      do j=0,jmax/2-1
+      do j=-jmax/2,jmax/2-1
          do i=0,imax/2-1
             dk = sqrt(dble(i*i+j*j))
             ek = 0.50d0*as/dkp*(dk/dkp)**(2.0d0*s+1.0d0)*exp(-(0.50d0+s)*(dk/dkp)**2)
-            zeta = sqrt(dble(dk/pi*ek))*exp(iu*(rnd(1,i,j)+rnd(2,i,j)))
-!            bij(1,i,j) = zeta%RE
-!            bij(2,i,j) = zeta%IM
-            bij(1,i,j) = real(zeta)
-            bij(2,i,j) = imag(zeta)
-         end do
-      end do
-      do j=-jmax/2,-1
-         do i=0,imax/2-1
-            dk = sqrt(dble(i*i+j*j))
-            ek = 0.50d0*as/dkp*(dk/dkp)**(2.0d0*s+1.0d0)*exp(-(0.50d0+s)*(dk/dkp)**2)
-            zeta = sqrt(dble(dk/pi*ek))*exp(iu*(rnd(1,i,-j)-rnd(2,i,-j)))
-!            bij(1,i,j) = zeta%RE
-!            bij(2,i,j) = zeta%IM
-            bij(1,i,j) = real(zeta)
-            bij(2,i,j) = imag(zeta)
+            call random_number(rnd)
+            rnd = rnd*2.0d0*pi
+            omega = sqrt(dble(dk/pi*ek))*exp(iu*(rnd(1)+rnd(2)))
+!            bij(1,i,j) = omega%RE
+!            bij(2,i,j) = omega%IM
+            bij(1,i,j) = real(omega)
+            bij(2,i,j) = imag(omega)
          end do
       end do
 
