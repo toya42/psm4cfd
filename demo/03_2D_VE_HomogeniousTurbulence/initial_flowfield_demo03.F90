@@ -47,8 +47,10 @@ module initial_flowfield
             call random_number(rnd)
             rnd = rnd*2.0d0*pi
             omega = sqrt(dble(dk/pi*ek))*exp(iu*(rnd(1)+rnd(2)))
-            bij(1,i,j) = omega%RE
-            bij(2,i,j) = omega%IM
+!            bij(1,i,j) = omega%RE
+!            bij(2,i,j) = omega%IM
+            bij(1,i,j) = real(omega)
+            bij(2,i,j) = imag(omega)
          end do
       end do
 
