@@ -7,7 +7,7 @@
  psm4cfd is a code of pseudo spectral method  for computational fluid dynamics, wrriten in Fortran.  The psm4cfd can simulate two-dimensional incompressible flow on doubly periodic condition.
 
 <p align="center">
-     <img src="https://github.com/toya42/garage/blob/master/psm_01/KH_instability.gif"
+     <img src="https://github.com/toya42/garage/blob/master/psm_01/demo01.gif"
 width="533" height="480"
 alt="Kelvin-Helmholtz instability"
 title="Kelvin-Helmholtz instability">
