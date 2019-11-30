@@ -71,7 +71,7 @@ program main
 
 ! post-process
    print *,'main) post-process start'
-!$   print *,'computational time',t3
+!$   print *,'computational time (exclude i/o and pre- and post-process)',t3
    call fft2d_finalize(des_n_r2c,des_n_c2r)
    call fft2d_finalize(des_p_r2c,des_p_c2r)
    print *,'main) post-process end'

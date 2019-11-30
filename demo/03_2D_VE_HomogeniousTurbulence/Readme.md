@@ -20,7 +20,7 @@
 
 ## Problem setting
 
-
+Two-dimensional decaying turbulence[^san]
 
 # License
 
@@ -31,3 +31,5 @@ This software is released under the MIT License, see [LICENSE](https://github.co
 C. Canuto, M. Y. Hussaini, A. Quarteroni, T. A. Zand, *Specral Methods Fundamentals in Single Domain*, Springer-Verlag (2006).
 
 C. Canuto, M. Y. Hussaini, A. Quarteroni, T. A. Zand, *Specral Methods Evolution to Complex Geometries and Applications to Fluid Dynamics*, Springer-Verlag (2007).
+
+[^san]: San,O.,Staples,A.E.:High-order methods for decaying two-dimensional homogeneous isotropic turbulence. Comput. Fluids 63, 105–127 (2012)

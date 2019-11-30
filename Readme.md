@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/toya42/psm4cfd.svg?branch=master)](https://travis-ci.org/toya42/psm4cfd)  [![](https://github.com/toya42/psm4cfd/workflows/demo/badge.svg)](https://github.com/toya42/psm4cfd/actions)
 
+
+
+ psm4cfd means pseudo spectral method for computational fluid dynamics.  The psm4cfd can simulate two-dimensional incompressible flow on doubly periodic condition.
+
 <p align="center">
      <img src="https://github.com/toya42/garage/blob/master/psm_01/KH_instability.gif"
 width="533" height="480"
@@ -94,10 +98,6 @@ source /opt/intel/mkl/bin/mklvars.sh intel64 lp64
 
 
 
-## Usage
-
-
-
 ## License
 
 This software is released under the MIT License, see [LICENSE](https://github.com/toya42/psm4cfd/blob/master/LICENSE).
@@ -106,7 +106,11 @@ This software is released under the MIT License, see [LICENSE](https://github.co
 
 toya42
 
-Twitter: @toya42_fortran
+## Contact
+
+Please report bugs and other issues through the issue tracker at:
+
+https://github.com/toya42/psm4cfd/issues
 
 ## References
 

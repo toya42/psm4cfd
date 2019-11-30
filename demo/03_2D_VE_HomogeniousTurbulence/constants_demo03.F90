@@ -7,7 +7,7 @@ module constants
 ! DOF(physical space & Fourier space). DOF must be a multiple of 4
    integer(int32),parameter :: dof = 4*2**6
 ! delta t (non-dimensional)
-   real(real64),parameter :: dt = 2.0d-4
+   real(real64),parameter :: dt = 2.0d-3
 ! output data (plot3d format)
    integer(int32),parameter :: oflag=6
 ! 0: no output    
@@ -19,11 +19,11 @@ module constants
 ! 6: grid file(.xyz) + Q files(rho=zeta, u=v=w=e=0) (for paraview)
 ! loop limit(nmax) & data output interval(nout)
 !  --- debug
-   integer(int32),parameter :: nmax = 10
-   integer(int32),parameter :: nout = 10
+!   integer(int32),parameter :: nmax = 10
+!   integer(int32),parameter :: nout = 10
 !  --- demo01
-!   integer(int32),parameter :: nmax = 50000
-!   integer(int32),parameter :: nout = 1000
+   integer(int32),parameter :: nmax = 5000
+   integer(int32),parameter :: nout = 100
 !**************************************************************************
 
 ! It is not recommended to change the following constants:
