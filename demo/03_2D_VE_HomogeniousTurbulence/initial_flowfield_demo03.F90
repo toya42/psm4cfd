@@ -49,7 +49,7 @@ module initial_flowfield
 !            bij(1,i,j) = zeta%RE
 !            bij(2,i,j) = zeta%IM
             bij(1,i,j) = real(zeta)
-            bij(2,i,j) = dimag(zeta)
+            bij(2,i,j) = aimag(zeta)
          end do
       end do
       do j=-jmax/2,-1
@@ -60,7 +60,7 @@ module initial_flowfield
 !            bij(1,i,j) = zeta%RE
 !            bij(2,i,j) = zeta%IM
             bij(1,i,j) = real(zeta)
-            bij(2,i,j) = dimag(zeta)
+            bij(2,i,j) = aimag(zeta)
          end do
       end do
 
