@@ -76,6 +76,11 @@ module output
       character(len=50) :: filename
       real(real64) :: dammy
 
+      if(oflag==0.and.loop.eq.0) then
+         deallocate(xi,yj)
+         return
+      endif
+
       if(oflag==0) return
 
       if(loop.eq.0) then

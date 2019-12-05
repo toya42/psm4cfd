@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.14)
 
 project(linearadvection Fortran)
 enable_language(Fortran)
@@ -20,8 +20,8 @@ endif()
 if(CMAKE_Fortran_COMPILER_ID MATCHES GNU)
    set(CMAKE_Fortran_FLAGS_DEBUG   "-O0            -Wall -pedantic  -std=f2008                        \
                                     -fbounds-check -Wuninitialized  -ffpe-trap=invalid,zero,overflow  \
-                                    -fbacktrace    -g -Ddebug -lpthread -ldl -Wl,--no-as-needed")
-   set(CMAKE_Fortran_FLAGS_PROFILE "-O3 -march=narive -mtune=native -p -lpthread -ldl -Wl,--no-as-needed")
+                                    -fbacktrace    -g -Ddebug -lpthread -ldl -m64 -Wl,--no-as-needed")
+   set(CMAKE_Fortran_FLAGS_PROFILE "-O3 -march=narive -mtune=native -p -lpthread -ldl -Wl,--no-as-needed ")
    set(CMAKE_Fortran_FLAGS_FAST    "-O3 -march=native -mtune=native -lpthread -ldl -Wl,--no-as-needed")
 endif()
 
@@ -41,15 +41,14 @@ else()
 endif()
 
 add_executable(${EXECUTABLE}
-   main_demo03.F90
-   constants_demo03.F90
-   initial_flowfield_demo03.F90
+   main.F90
+   constants_demo01.F90
    ../../source/fft2d_mkl.F90
    ../../source/arrays_2D_VE_DP.F90
+   initial_flowfield_demo01.F90
    ../../source/time_integration_2D_VE_DP.F90
-   ../../source/output_2D_VE_DP.F90
+   output_2D.F90
    ../../source/sort_spectral_coefficients.F90
-   ../../source/velocity_2D_VE_DP.F90
    /opt/intel/mkl/include/mkl_dfti.f90
   )
 
@@ -131,7 +130,7 @@ elseif(UNIX)
             /opt/intel/mkl/lib/intel64/libmkl_gf_lp64.so
          )
       endif()
-   else()
+  else()
       message("**** WARNING **********************")
       message(" This compiler is not supported    ")
       message("***********************************")
