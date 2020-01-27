@@ -14,7 +14,7 @@
 
 * Time discretization
 
-  nonlinear term: Traditional 4 stage 4th order Runge-Kutta method
+  nonlinear term: Classical 4 stage 4th order Runge-Kutta method
 
   linear term: Integrating factor technique
 

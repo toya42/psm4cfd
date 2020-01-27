@@ -37,7 +37,7 @@ if(large_array)
       endif()
    endif()
 else()
-   add_definitions(-Dintegertype=0)
+   add_definitions(-Dintegertype=0 -mcmodel=large)
 endif()
 
 add_executable(${EXECUTABLE}
